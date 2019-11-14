@@ -1,6 +1,14 @@
-endpoint: https://eu1.prisma.sh/kouatch/phoneshop/dev
+endpoint: ${env:PRISMA_ENDPOINT}
+# secret: ${env:PRISMA_SECRET}
 datamodel: datamodel.prisma
 
+
+
+hooks:
+  post-deploy:
+    - graphql get-schema -p prisma
+
+    
 generate:
   - generator: javascript-client
     output: ./generated/prisma-client/
